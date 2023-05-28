@@ -19,12 +19,16 @@ namespace kiddiestories
         }
 
         #region :: Variables
+        [Header("UI Panels")]
         public HomeUIHandler homeUIHandler;
         public StoriesUIHandler storiesUIHandler;
         public FavoriteUIHandler favoriteUIHandler;
         public QuizUIHandler quizUIHandler;
         public GameUIHandler gameUIHandler;
         public DictionaryUIHandler dictionaryUIHandler;
+
+        [Header("Managers")]
+        public SoundManager soundManager;
 
         private readonly float _delayTime = 1f;
         #endregion

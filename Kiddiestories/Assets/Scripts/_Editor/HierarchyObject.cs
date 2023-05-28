@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace bright
+namespace kiddiestories
 {
 #if UNITY_EDITOR
     [InitializeOnLoad]

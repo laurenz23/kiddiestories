@@ -14,26 +14,31 @@ namespace kiddiestories
         #region :: Actions
         public void OnStoriesAction()
         {
+            soundFXManager.PlayUITap("tap1");
             StartCoroutine(WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage.STORIES));
         }
 
         public void OnFavoritesAction()
         {
+            soundFXManager.PlayUITap("tap1");
             StartCoroutine(WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage.FAVORITE));
         }
 
         public void OnQuizAction()
         {
+            soundFXManager.PlayUITap("tap1");
             StartCoroutine(WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage.QUIZ));
         }
 
         public void OnGamesAction()
         {
+            soundFXManager.PlayUITap("tap1");
             StartCoroutine(WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage.GAME));
         }
 
         public void OnDictionaryAction()
         {
+            soundFXManager.PlayUITap("tap1");
             StartCoroutine(WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage.DICTIONARY));
         }
         #endregion

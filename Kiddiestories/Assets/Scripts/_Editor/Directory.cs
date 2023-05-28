@@ -4,7 +4,7 @@ using static System.IO.Directory;
 using static System.IO.Path;
 using static UnityEngine.Application;
 
-namespace bright
+namespace kiddiestories
 {
     public static class Directory
     {
