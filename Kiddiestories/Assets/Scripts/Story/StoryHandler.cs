@@ -11,7 +11,10 @@ namespace kiddiestories
     {
         [SerializeField] private TMP_Text _storyTitle;
         [SerializeField] private TMP_Text _storyDescription;
+        [SerializeField] private GameObject[] _storyArray;
         [SerializeField] private GameObject[] _story1Image;
+        [SerializeField] private GameObject[] _story2Image;
+        [SerializeField] private GameObject[] _story3Image;
         [SerializeField] private SoundManager _soundManager;
 
         private Story _selectedStory = Story.STORY1;
@@ -30,6 +33,43 @@ namespace kiddiestories
             "Amin nga pangbiruken iti makan ket ni Inang  nan ta kasjay mut galud ni Butsoy. Baket mutten ni Inang nan, isu nga simmampet aldaw ket natay ni Inang nan ti kinakapsot nan.",
             "Simula ajay awan maasahan nan agbirok makanen, nu ti kinasadot na iti panunuten  na ket mabininan isuna. Isu nga simula ajay nagbiyag Isunan maymaysa."
         };
+        private readonly string[] _story2Array =
+        {
+            "Maysa nga bigat, nagsinnabat ni Pagong kenne Nuang",
+            "Pagong: Nuwang papanam mabalen nga umayak met? Kayat ko kuma nga makigayyem kanya yo da kalding kenne kabayo",
+            "Nuwang: tskk! Sika? Makipagayyem? Madik kayat nagy, Inya ngay met itt maaramid mo kuma, sa maysa makigayagayem kami laeng iti papada mi nga dadakkel. Nakabunbuntog ka pay nga magna!",
+            "Pagong: Nagsakit ka met nga agsaon Nuwang, uray kastoyak laeng met serbik latta..",
+            "Nuwang: Sige ngarod, makigayyem mak kanyam no maabak nak itit lumba. Aglumba ta nga makadanon idjay maikalima nga bantay, ni sika iti mangabak, ipaam-ammo ka kenne kalading kenne kabayo ken mabalen kan kumadwa kanayami.",
+            "Nuwang: Ngem no syak iti managabak, haan nak nga isistorbwenen ken katkatungtongen nen.",
+            "Pagong: wen sige! Mayat tak!",
+            "Napakudkod laeng iti ulo ni Pagong, napanunot na,kasla imposible nga maabak n ani Nuwang iti lumba. Ngem, nakapanunot isuna iti ideya. Napan isuna idyay kakabsat nan ga Pagong ken kinatungtong na isuda",
+            "Pagong: Kakabsat, adda kuma iti iapaiusap ko kanyo? Mabalen dak nga tulungan jay lumba no bigat? Bawat maysa kanya yo aganaed idjay idjay 4 nga bundok. Siyak to jay maika lima nga bundok. Kayat ko iti mangabak tapno maikkat iti lastog n ani Nuwang.",
+            "Kakabsat nan ga Pagong: \"Wen cge Manong!\"",
+            "Kinabigatan na. Nangrugi iti karera ni Pagong ken Nuwang",
+            "Nuwang: Hahaha! Awan panama kenyak. Ammo tayon no sinno mangabak ken, Kitaem man maududti kan to pay yen tattan...",
+            "Nagkarera ni Pagonng kenne Nuwang. Kampante ni Nuwang nga maabak n ani Pagong. Idi makadanon ijay umuna nga bantay, uray la nagillil ta Makita na ni pagong ket nabanbannog gen.",
+            "Idi makadanon iti mai kadwa ken maikatlo, masdaaw ta isu pay immunan nga nakadanon nen",
+            "Nadanagan ni nuwang iti sitwasyon isu nga pinaspasan nan bassit it nagna... idi makagudwa na iti maika oppat nga bundok agulaw isunan bannog ngem, bigla isuna naipaidda.",
+            "Agay ayat ni Pagong nga didjay toktok iti maikalima nga bantay, Idi maka riing ni Nuwang…",
+            "Nuwang: kongrats Pagong, naglaing ka, sika iti nangabak iti lumba.",
+            "Pagong:”agyaman nak Nuwang!",
+            "Nuwang: Manipod tatta, mabalen ka makigayem kanya men, ken iyam-ammo ka kenne kalding ken kabayo…",
+            "Manipod iddi nagbalen nga agbest pren ni Nuwang kenne Pagong!"
+        };
+        private readonly string[] _story3Array =
+        {
+            "Maysa nga ladaw nagkarera ni Pagong ken Unggoy nga napan diay bantay. Daras nga nakadanun ni Unggoy.",
+            "Ti kinabuntog na ni Pagong aradiay pay lang isuna katingaan ti dalan. Ti kinabayag ni Pagong nag inana ni Ungoy.",
+            "Idi aradiay dan bantay nabisinan da a duwa. Nakabirok ni Pag-ong iti maysa nga puon tis saba nga ada ti bunga na.",
+            "Awan ti nabirukan ni Unggoy. Ngem madi na met maala ni Pag-ong ta nangato diay bunga ti saba.",
+            "Inuli ni Unggoy diay bunga a naluom a saba, kinanamin ni Unggoy diay saba. Sumaruno nga aldaw nagbisin da manen a duwa.",
+            "Inala ni pag-ong diay puon ti saba ken inala met ni Unggoy diay murdong  na inmula da nga duwa diay saba.",
+            "Simaruno nga domingo idi kinita da diay mula da natay diay immula ni Unggoy, nagtubo met diay Inmula ni Pag-ong dimakel inggana nagbunga diay saba ni Pag-ong. Rinimmingan ni Pag-ong diay mula na.",
+            "Sumuno nga aldaw adda kinnan ni Pag-ong ngahaan suna nga mabisinan. Pirmi iti appal ni Unggoy kini Pag-ong, ta awan met ti makkan na.",
+            "Naasyan ni Pag-ong keni Unggoy ket inikkan na ti saba para makan na. Haan nga nagbayag ket nagtungtung da nga duwa nga agmula da iti puon ti saba tapno no mabisin da ket ada iti makkan da nga duwa.",
+            "Nagbalin da nga ag gayem inggana.",
+            "Adal: Haan nga agim-imut iti kapada tayo, Agsaet tayo nga agmula tapno no agkaikailangan tayo keta da iti maani tayo."
+        };
 
         private void Start()
         {
@@ -38,14 +78,17 @@ namespace kiddiestories
             if (_selectedStory == Story.STORY1)
             {
                 _storyTitle.text = "Kakok";
+                _storyArray[0].SetActive(true);
             }
             else if (_selectedStory == Story.STORY2)
             {
                 _storyTitle.text = "Ni Pagong Kenne Nuwang";
+                _storyArray[1].SetActive(true);
             }
             else if (_selectedStory == Story.STORY3)
             {
                 _storyTitle.text = "Ni Pagong Kenne Unggoy";
+                _storyArray[2].SetActive(true);
             }
 
             OnNext();
@@ -65,7 +108,11 @@ namespace kiddiestories
             {
                 if (!(_currentPage >= _story1Array.Length))
                 {
-                    if (_currentPage == 2)
+                    if (_currentPage == 0)
+                    {
+                        _story1Image[0].SetActive(true);
+                    }
+                    else if (_currentPage == 2)
                     {
                         _story1Image[0].SetActive(false);
                         _story1Image[1].SetActive(true);
@@ -96,11 +143,82 @@ namespace kiddiestories
             }
             else if (_selectedStory == Story.STORY2)
             {
-                Debug.Log("Story 2");
+                if (!(_currentPage >= _story2Array.Length))
+                {
+                    if (_currentPage == 0)
+                    {
+                        _story2Image[0].SetActive(true);
+                    } 
+                    else if (_currentPage == 3)
+                    {
+                        _story2Image[0].SetActive(false);
+                        _story2Image[1].SetActive(true);
+                    }
+                    else if (_currentPage == 7)
+                    {
+                        _story2Image[1].SetActive(false);
+                        _story2Image[2].SetActive(true);
+                    }
+                    else if (_currentPage == 10)
+                    {
+                        _story2Image[2].SetActive(false);
+                        _story2Image[3].SetActive(true);
+                    }
+                    else if (_currentPage == 14)
+                    {
+                        _story2Image[3].SetActive(false);
+                        _story2Image[4].SetActive(true);
+                    }
+                    else if (_currentPage == 18)
+                    {
+                        _story2Image[4].SetActive(false);
+                        _story2Image[5].SetActive(true);
+                    }
+
+                    _storyDescription.text = _story2Array[_currentPage];
+                    _currentPage++;
+                }
+                else
+                {
+                    _storyDescription.text = "The END!!!";
+                }
             }
             else if (_selectedStory == Story.STORY3)
             {
-                Debug.Log("Story 3");
+                if (!(_currentPage >= _story3Array.Length))
+                {
+                    if (_currentPage == 0)
+                    {
+                        _story3Image[0].SetActive(true);
+                    }
+                    else if (_currentPage == 2)
+                    {
+                        _story3Image[0].SetActive(false);
+                        _story3Image[1].SetActive(true);
+                    }
+                    else if (_currentPage == 4)
+                    {
+                        _story3Image[1].SetActive(false);
+                        _story3Image[2].SetActive(true);
+                    }
+                    else if (_currentPage == 7)
+                    {
+                        _story3Image[2].SetActive(false);
+                        _story3Image[3].SetActive(true);
+                    }
+                    else if (_currentPage == 10)
+                    {
+                        _story3Image[3].SetActive(false);
+                        _story3Image[4].SetActive(true);
+                    }
+
+                    _storyDescription.text = _story3Array[_currentPage];
+                    _currentPage++;
+                }
+                else
+                {
+                    _storyDescription.text = "The END!!!";
+                }
             }
         }
 
