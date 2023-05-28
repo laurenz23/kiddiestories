@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace kiddiestories
 {
-    public class FavoriteUIHandler : MonoBehaviour
+    public class FavoriteUIHandler : MainSubUIPanel
     {
         // Start is called before the first frame update
         void Start()

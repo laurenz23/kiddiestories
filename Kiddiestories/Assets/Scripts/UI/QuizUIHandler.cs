@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace kiddiestories
 {
-    public class QuizUIHandler : MonoBehaviour
+    public class QuizUIHandler : MainSubUIPanel
     {
         // Start is called before the first frame update
         void Start()

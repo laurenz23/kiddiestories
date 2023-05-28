@@ -1,21 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace kiddiestories
 {
-    public class DictionaryUIHandler : MonoBehaviour
+    public class DictionaryUIHandler : MainSubUIPanel
     {
-        // Start is called before the first frame update
-        void Start()
+        #region :: Variables
+        [Header("Dictionary Attributes")]
+        [SerializeField] private TMP_InputField _searchInputField;
+        #endregion
+
+        #region :: Actions
+        public override void OnBackAction()
         {
-
+            Reset();
+            base.OnBackAction();
         }
+        #endregion
 
-        // Update is called once per frame
-        void Update()
+        #region :: Helper
+        public void Reset()
         {
-
+            _searchInputField.text = string.Empty;
         }
+        #endregion
     }
 }

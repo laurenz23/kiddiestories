@@ -25,6 +25,8 @@ namespace kiddiestories
         public QuizUIHandler quizUIHandler;
         public GameUIHandler gameUIHandler;
         public DictionaryUIHandler dictionaryUIHandler;
+
+        private readonly float _delayTime = 1f;
         #endregion
 
         #region :: Life Cycle
@@ -35,6 +37,11 @@ namespace kiddiestories
         #endregion
 
         #region :: Helper
+        public void BackWithDelay()
+        {
+            StartCoroutine(WaitForSecondToBack());
+        }
+
         public void DisplayPage(MainMenuPage page)
         {
             homeUIHandler.gameObject.SetActive(false);
@@ -65,6 +72,13 @@ namespace kiddiestories
                     storiesUIHandler.gameObject.SetActive(true);
                     break;
             }
+        }
+
+        private IEnumerator WaitForSecondToBack()
+        {
+            yield return new WaitForSeconds(_delayTime);
+            DisplayPage(MainMenuPage.HOME);
+            StopCoroutine(WaitForSecondToBack());
         }
         #endregion
 

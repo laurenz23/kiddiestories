@@ -4,18 +4,8 @@ using UnityEngine;
 
 namespace kiddiestories
 {
-    public class StoriesUIHandler : MonoBehaviour
+    public class StoriesUIHandler : MainSubUIPanel
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        
     }
 }

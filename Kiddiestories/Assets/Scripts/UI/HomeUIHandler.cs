@@ -4,22 +4,11 @@ using UnityEngine;
 
 namespace kiddiestories
 {
-    public class HomeUIHandler : MonoBehaviour
+    public class HomeUIHandler : MainSubUIPanel
     {
 
         #region :: Variables
-        [SerializeField] private Animator _homeAnimator;
-
-        private MainMenuUIHandler _mainMenuUIHandler;
-        private readonly string _exit = "exit";
         private readonly float _delayTime = 2f;
-        #endregion
-
-        #region :: Life Cycle
-        private void Start()
-        {
-            _mainMenuUIHandler = transform.parent.GetComponent<MainMenuUIHandler>();
-        }
         #endregion
 
         #region :: Actions
@@ -52,10 +41,10 @@ namespace kiddiestories
         #region :: Helper
         public IEnumerator WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage page)
         {
-            _homeAnimator.SetTrigger(_exit);
+            animator.SetTrigger(animExit);
 
             yield return new WaitForSeconds(_delayTime);
-            _mainMenuUIHandler.DisplayPage(page);
+            mainMenuUIHandler.DisplayPage(page);
             StopCoroutine(WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage.NULL));
         }
         #endregion 
