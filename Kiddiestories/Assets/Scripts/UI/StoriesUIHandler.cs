@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace kiddiestories
 {
@@ -30,6 +31,7 @@ namespace kiddiestories
         public void SwitchScene(Story selectedStory)
         {
             StoryManager.SetSelectedStory(selectedStory);
+            SceneManager.LoadScene("StoryScene");
         }
         #endregion
     }
