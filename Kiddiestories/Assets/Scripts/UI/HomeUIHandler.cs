@@ -8,42 +8,57 @@ namespace kiddiestories
     {
 
         #region :: Variables
-        private MainMenuUIHandler mainMenuUIHandler;
+        [SerializeField] private Animator _homeAnimator;
+
+        private MainMenuUIHandler _mainMenuUIHandler;
+        private readonly string _exit = "exit";
+        private readonly float _delayTime = 2f;
         #endregion
 
         #region :: Life Cycle
         private void Start()
         {
-            mainMenuUIHandler = transform.parent.GetComponent<MainMenuUIHandler>();
+            _mainMenuUIHandler = transform.parent.GetComponent<MainMenuUIHandler>();
         }
         #endregion
 
         #region :: Actions
         public void OnStoriesAction()
         {
-            mainMenuUIHandler.DisplayPage(MainMenuUIHandler.MainMenuPage.STORIES);
+            StartCoroutine(WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage.STORIES));
         }
 
         public void OnFavoritesAction()
         {
-            mainMenuUIHandler.DisplayPage(MainMenuUIHandler.MainMenuPage.FAVORITE);
+            StartCoroutine(WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage.FAVORITE));
         }
 
         public void OnQuizAction()
         {
-            mainMenuUIHandler.DisplayPage(MainMenuUIHandler.MainMenuPage.QUIZ);
+            StartCoroutine(WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage.QUIZ));
         }
 
         public void OnGamesAction()
         {
-            mainMenuUIHandler.DisplayPage(MainMenuUIHandler.MainMenuPage.GAME);
+            StartCoroutine(WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage.GAME));
         }
 
         public void OnDictionaryAction()
         {
-            mainMenuUIHandler.DisplayPage(MainMenuUIHandler.MainMenuPage.DICTIONARY);
+            StartCoroutine(WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage.DICTIONARY));
         }
         #endregion
+
+        #region :: Helper
+        public IEnumerator WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage page)
+        {
+            _homeAnimator.SetTrigger(_exit);
+
+            yield return new WaitForSeconds(_delayTime);
+            _mainMenuUIHandler.DisplayPage(page);
+            StopCoroutine(WaitForSecondToDisplay(MainMenuUIHandler.MainMenuPage.NULL));
+        }
+        #endregion 
 
     }
 }

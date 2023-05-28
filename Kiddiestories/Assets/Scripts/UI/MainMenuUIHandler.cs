@@ -9,6 +9,7 @@ namespace kiddiestories
 
         public enum MainMenuPage
         { 
+            NULL,
             DICTIONARY,
             FAVORITE,
             GAME,
