@@ -31,5 +31,6 @@ namespace kiddiestories
             mainMenuUIHandler.BackWithDelay();
         }
         #endregion
+
     }
 }

@@ -15,18 +15,18 @@ namespace kiddiestories
     {
 
         #region :: Variables
-        private static Story selectedStory;
+        private static Story _selectedStory;
         #endregion
 
         #region :: Properties
         public static void SetSelectedStory(Story story)
         {
-            selectedStory = story;
+            _selectedStory = story;
         }
 
         public static Story GetSelectedStory()
         {
-            return selectedStory;
+            return _selectedStory;
         }
         #endregion
 
