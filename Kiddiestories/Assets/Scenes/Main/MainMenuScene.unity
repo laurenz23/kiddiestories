@@ -11467,8 +11467,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1573761812}
-        m_TargetAssemblyTypeName: kiddiestories.HomeUIHandler, Assembly-CSharp
+      - m_Target: {fileID: 201280125}
+        m_TargetAssemblyTypeName: kiddiestories.MainMenuUIHandler, Assembly-CSharp
         m_MethodName: OnLogoutAction
         m_Mode: 1
         m_Arguments:
