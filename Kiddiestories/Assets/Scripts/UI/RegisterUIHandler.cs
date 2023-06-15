@@ -83,6 +83,7 @@ namespace kiddiestories
 
         public void OnBackToLogin()
         {
+            _onBoardingUIHandler.soundManager.soundFXManager.PlayUITap("tap1");
             _onBoardingUIHandler.loginUIHandler.gameObject.SetActive(true);
             _onBoardingUIHandler.registerUIHandler.gameObject.SetActive(false);
             Reset();
@@ -90,6 +91,7 @@ namespace kiddiestories
 
         public void OnRegisterUser()
         {
+            _onBoardingUIHandler.soundManager.soundFXManager.PlayUITap("tap1");
             string email = _emailInputField.text;
             string firstName = _firstNameInputField.text;
             string lastName = _lastNameInputField.text;

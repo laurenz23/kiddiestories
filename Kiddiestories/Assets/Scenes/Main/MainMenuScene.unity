@@ -11737,6 +11737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ed7653bab2f2942b97085ae423403f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 1667284355}
   mainMenuUIHandler: {fileID: 201280125}
   loginUIHandler: {fileID: 259601120}
   registerUIHandler: {fileID: 1357933509}
