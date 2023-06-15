@@ -9,8 +9,12 @@ namespace kiddiestories
 {
     public class StoryHandler : MonoBehaviour
     {
+
         [SerializeField] private TMP_Text _storyTitle;
         [SerializeField] private TMP_Text _storyDescription;
+        [SerializeField] private Button _prevButton;
+        [SerializeField] private Button _nextButton;
+        [SerializeField] private GameObject _promptQuizMessage;
         [SerializeField] private GameObject[] _storyArray;
         [SerializeField] private GameObject[] _story1Image;
         [SerializeField] private GameObject[] _story2Image;
@@ -19,6 +23,7 @@ namespace kiddiestories
 
         private Story _selectedStory = Story.STORY1;
         private int _currentPage = 0;
+        private int _storyLength = 0;
         private readonly string[] _story1Array =
         {
             "Adda iti duwa nga tutak ayan ti danuman ayan iti igid iti waig. Ajay nga duwa nga tukak ket agina. Kananayen da nga nangiwat ken nagulo jay pag gyagyanan da nga agina.",
@@ -94,137 +99,215 @@ namespace kiddiestories
             OnNext();
         }
 
+        #region :: Actions
         public void OnBack()
         {
             _soundManager.soundFXManager.PlayUITap("tap2");
             SceneManager.LoadScene("MainMenuScene");
         }
 
+        public void OnPrev()
+        {
+            _soundManager.soundFXManager.PlayUITap("tap2");
+
+            if (_currentPage > 0) 
+            {
+                _currentPage--;
+            }
+
+            DisplayStory();
+        }
+
         public void OnNext()
         {
             _soundManager.soundFXManager.PlayUITap("tap1");
 
+            if (!(_currentPage >= _storyLength))
+            {
+                _currentPage++;
+            }
+            else
+            {
+                _currentPage = _storyLength;
+            }
+
+            DisplayStory();
+        }
+
+        public void OnPromptYesTap()
+        {
+            _soundManager.soundFXManager.PlayUITap("tap1");
+            SceneManager.LoadScene("MainMenuScene");
+        }
+
+        public void OnPromptNoTap()
+        {
+            _soundManager.soundFXManager.PlayUITap("tap2");
+            _promptQuizMessage.SetActive(false);
+        }
+        #endregion
+
+        #region :: Helper
+        public void DisplayStory()
+        {
             if (_selectedStory == Story.STORY1)
             {
                 if (!(_currentPage >= _story1Array.Length))
                 {
-                    if (_currentPage == 0)
+                    _storyLength = _story1Array.Length;
+
+                    if (_currentPage <= 2)
                     {
                         _story1Image[0].SetActive(true);
+                        _story1Image[1].SetActive(false);
                     }
-                    else if (_currentPage == 2)
+                    else if (_currentPage <= 4)
                     {
                         _story1Image[0].SetActive(false);
                         _story1Image[1].SetActive(true);
+                        _story1Image[2].SetActive(false);
                     }
-                    else if (_currentPage == 4)
+                    else if (_currentPage <= 7)
                     {
                         _story1Image[1].SetActive(false);
                         _story1Image[2].SetActive(true);
+                        _story1Image[3].SetActive(false);
                     }
-                    else if (_currentPage == 7)
+                    else if (_currentPage <= 9)
                     {
                         _story1Image[2].SetActive(false);
                         _story1Image[3].SetActive(true);
+                        _story1Image[4].SetActive(false);
                     }
-                    else if (_currentPage == 10)
+                    else
                     {
                         _story1Image[3].SetActive(false);
                         _story1Image[4].SetActive(true);
                     }
 
                     _storyDescription.text = _story1Array[_currentPage];
-                    _currentPage++;
                 }
-                else 
+                else
                 {
                     _storyDescription.text = "The END!!!";
+                    DisplayPromptQuiz();
                 }
             }
             else if (_selectedStory == Story.STORY2)
             {
                 if (!(_currentPage >= _story2Array.Length))
                 {
-                    if (_currentPage == 0)
+                    _storyLength = _story2Array.Length;
+
+                    if (_currentPage <= 3)
                     {
                         _story2Image[0].SetActive(true);
-                    } 
-                    else if (_currentPage == 3)
+                        _story2Image[1].SetActive(false);
+                    }
+                    else if (_currentPage <= 7)
                     {
                         _story2Image[0].SetActive(false);
                         _story2Image[1].SetActive(true);
+                        _story2Image[2].SetActive(false);
                     }
-                    else if (_currentPage == 7)
+                    else if (_currentPage <= 10)
                     {
                         _story2Image[1].SetActive(false);
                         _story2Image[2].SetActive(true);
+                        _story2Image[3].SetActive(false);
                     }
-                    else if (_currentPage == 10)
+                    else if (_currentPage <= 14)
                     {
                         _story2Image[2].SetActive(false);
                         _story2Image[3].SetActive(true);
+                        _story2Image[4].SetActive(false);
                     }
-                    else if (_currentPage == 14)
+                    else if (_currentPage <= 17)
                     {
                         _story2Image[3].SetActive(false);
                         _story2Image[4].SetActive(true);
+                        _story2Image[5].SetActive(false);
                     }
-                    else if (_currentPage == 18)
+                    else
                     {
                         _story2Image[4].SetActive(false);
                         _story2Image[5].SetActive(true);
                     }
 
                     _storyDescription.text = _story2Array[_currentPage];
-                    _currentPage++;
                 }
                 else
                 {
                     _storyDescription.text = "The END!!!";
+                    DisplayPromptQuiz();
                 }
             }
             else if (_selectedStory == Story.STORY3)
             {
                 if (!(_currentPage >= _story3Array.Length))
                 {
-                    if (_currentPage == 0)
+                    _storyLength = _story3Array.Length;
+
+                    if (_currentPage <= 2)
                     {
                         _story3Image[0].SetActive(true);
+                        _story3Image[1].SetActive(false);
                     }
-                    else if (_currentPage == 2)
+                    else if (_currentPage <= 4)
                     {
                         _story3Image[0].SetActive(false);
                         _story3Image[1].SetActive(true);
+                        _story3Image[2].SetActive(false);
                     }
-                    else if (_currentPage == 4)
+                    else if (_currentPage <= 7)
                     {
                         _story3Image[1].SetActive(false);
                         _story3Image[2].SetActive(true);
+                        _story3Image[3].SetActive(false);
                     }
-                    else if (_currentPage == 7)
+                    else if (_currentPage <= 9)
                     {
                         _story3Image[2].SetActive(false);
                         _story3Image[3].SetActive(true);
+                        _story3Image[4].SetActive(false);
                     }
-                    else if (_currentPage == 10)
+                    else
                     {
                         _story3Image[3].SetActive(false);
                         _story3Image[4].SetActive(true);
                     }
 
                     _storyDescription.text = _story3Array[_currentPage];
-                    _currentPage++;
                 }
                 else
                 {
                     _storyDescription.text = "The END!!!";
+                    DisplayPromptQuiz();
                 }
             }
+        }
+
+        private void DisplayPromptQuiz()
+        {
+            _prevButton.interactable = false;
+            _nextButton.interactable = false;
+            StartCoroutine(WaitSecondForPromptQuiz());
         }
 
         public void Reset()
         {
             _currentPage = 0;
         }
+
+        private IEnumerator WaitSecondForPromptQuiz()
+        {
+            yield return new WaitForSeconds(3f);
+            _promptQuizMessage.SetActive(true);
+            _prevButton.interactable = true;
+            _nextButton.interactable = true;
+            StopCoroutine(WaitSecondForPromptQuiz());
+        }
+        #endregion
+
     }
 }

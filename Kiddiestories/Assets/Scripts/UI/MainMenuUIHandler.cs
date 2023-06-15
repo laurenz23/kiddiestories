@@ -21,6 +21,7 @@ namespace kiddiestories
         #region :: Variables
         [Header("UI Panels")]
         public HomeUIHandler homeUIHandler;
+        public OnBoardingUIHandler onBoardingUIHandler;
         public StoriesUIHandler storiesUIHandler;
         public FavoriteUIHandler favoriteUIHandler;
         public QuizUIHandler quizUIHandler;
