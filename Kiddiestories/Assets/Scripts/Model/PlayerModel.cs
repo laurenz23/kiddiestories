@@ -11,6 +11,8 @@ public class PlayerModel
     public string firstName;
     public string lastName;
 
+    public PlayerModel() { }
+
     public PlayerModel(string uuid, string email, string firstName, string lastName)
     {
         this.uuid = uuid;

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Firebase.Auth;
 using System;
+using Proyecto26;
 
 namespace kiddiestories
 {
@@ -17,30 +18,67 @@ namespace kiddiestories
         [Header("Class Reference")]
         [SerializeField] private OnBoardingUIHandler _onBoardingUIHandler;
         [SerializeField] private LoginClient _loginClient;
+        [SerializeField] private RestClientManager _restClientManager;
+        [SerializeField] private RepositoryManager _repositoryManager;
 
         private void OnEnable()
         {
             _loginClient.EventLoginSuccess += OnLoginSuccess;
             _loginClient.EventLoginFailed += OnLoginFailed;
+
+            _restClientManager.EventPlayerDataSuccess += OnPlayerDataSuccess;
+            _restClientManager.EventPlayerDataSuccessError += OnPlayerDataSuccessError;
+            _restClientManager.EventPlayerDataError += OnPlayerDataError;
+        }
+
+        private void OnDisable()
+        {
+            _loginClient.EventLoginSuccess -= OnLoginSuccess;
+            _loginClient.EventLoginFailed -= OnLoginFailed;
+
+            _restClientManager.EventPlayerDataSuccess -= OnPlayerDataSuccess;
+            _restClientManager.EventPlayerDataSuccessError -= OnPlayerDataSuccessError;
+            _restClientManager.EventPlayerDataError -= OnPlayerDataError;
+        }
+
+        private void OnPlayerDataSuccess(PlayerModel playerData)
+        {
+            _repositoryManager.SavePlayerProfileData(playerData);
+
+            if (_repositoryManager.LoadPlayerProfileData() == null)
+            {
+                _errorMessage.text = "Encountered an error loading data.";
+                _errorPanel.SetActive(true);
+                return;
+            }
+
+            _onBoardingUIHandler.mainMenuUIHandler.gameObject.SetActive(true);
+            _onBoardingUIHandler.gameObject.SetActive(false);
+            _emailInputField.text = string.Empty;
+            _passwordInputField.text = string.Empty;
+        }
+
+        private void OnPlayerDataSuccessError()
+        {
+            _errorMessage.text = "Encountered an error retrieving data.";
+            _errorPanel.SetActive(true);
+        }
+
+        private void OnPlayerDataError(RequestException error)
+        {
+            _errorMessage.text = error.ToString();
+            _errorPanel.SetActive(true);
         }
 
         private void OnLoginSuccess(FirebaseUser user)
         {
-            _onBoardingUIHandler.mainMenuUIHandler.gameObject.SetActive(true);
-            _onBoardingUIHandler.gameObject.SetActive(false);
+            _restClientManager.RetrievePlayerData(user.UserId);
         }
 
         private void OnLoginFailed(string failedMessage)
         {
             _errorMessage.text = failedMessage;
             _errorPanel.SetActive(true);
-        }
-
-
-        private void OnDisable()
-        {
-            _loginClient.EventLoginSuccess -= OnLoginSuccess;
-            _loginClient.EventLoginFailed -= OnLoginFailed;
         }
 
         public void OnLoginTap()
@@ -82,7 +120,16 @@ namespace kiddiestories
         public void OnRegisterTap()
         {
             _onBoardingUIHandler.registerUIHandler.gameObject.SetActive(true);
-            _onBoardingUIHandler.loginUIHandler.gameObject.SetActive(true);
+            _onBoardingUIHandler.loginUIHandler.gameObject.SetActive(false);
+            Reset();
+        }
+
+        private void Reset()
+        {
+            _emailInputField.text = string.Empty;
+            _passwordInputField.text = string.Empty;
+            _errorMessage.text = "";
+            _errorPanel.SetActive(false);
         }
 
     }

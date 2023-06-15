@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace kiddiestories
 {
@@ -19,6 +20,8 @@ namespace kiddiestories
         }
 
         #region :: Variables
+        [Header("Text")]
+        [SerializeField] private TMP_Text _playerName;
         [Header("UI Panels")]
         public HomeUIHandler homeUIHandler;
         public OnBoardingUIHandler onBoardingUIHandler;
@@ -29,6 +32,7 @@ namespace kiddiestories
         public DictionaryUIHandler dictionaryUIHandler;
 
         [Header("Managers")]
+        public RepositoryManager repositoryManager;
         public SoundManager soundManager;
 
         private readonly float _delayTime = 1f;
@@ -37,7 +41,24 @@ namespace kiddiestories
         #region :: Life Cycle
         public void Start()
         {
+            if (repositoryManager.LoadPlayerProfileData() != null)
+            {
+                string firstName = repositoryManager.GetPlayerProfileData().firstName;
+                string lastName = repositoryManager.GetPlayerProfileData().lastName;
+                _playerName.text = firstName + " " + lastName;
+            }
+
             DisplayPage(MainMenuPage.HOME);
+        }
+        #endregion
+
+        #region :: Actions
+        public void OnLogoutAction()
+        {
+            soundManager.soundFXManager.PlayUITap("tap2");
+            repositoryManager.DeletePlayerProfileData();
+            onBoardingUIHandler.loginUIHandler.gameObject.SetActive(true);
+            onBoardingUIHandler.gameObject.SetActive(true);
         }
         #endregion
 

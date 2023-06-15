@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+using Proyecto26;
 
 namespace kiddiestories
 {
@@ -17,11 +19,73 @@ namespace kiddiestories
         [SerializeField] private GameObject _errorPanel;
         [Header("Class Reference")]
         [SerializeField] private OnBoardingUIHandler _onBoardingUIHandler;
+        [SerializeField] private RegisterClient _registerClient;
+        [SerializeField] private RestClientManager _restClientManager;
+
+        private void OnEnable()
+        {
+            _registerClient.EventRegisterSuccess += OnRegisterSuccess;
+            _registerClient.EventRegisterSuccessWithError += OnRegisterSuccessError;
+            _registerClient.EventRegisterFailed += OnRegisterFailed;
+
+            _restClientManager.EventPlayerDataSuccess += OnPlayerDataSuccess;
+            _restClientManager.EventPlayerDataSuccessError += OnPlayerDataSuccessError;
+            _restClientManager.EventPlayerDataError += OnPlayerDataError;
+        }
+
+        private void OnDisable()
+        {
+            _registerClient.EventRegisterSuccess -= OnRegisterSuccess;
+            _registerClient.EventRegisterSuccessWithError -= OnRegisterSuccessError;
+            _registerClient.EventRegisterFailed -= OnRegisterFailed;
+
+            _restClientManager.EventPlayerDataSuccess -= OnPlayerDataSuccess;
+            _restClientManager.EventPlayerDataSuccessError -= OnPlayerDataSuccessError;
+            _restClientManager.EventPlayerDataError -= OnPlayerDataError;
+        }
+
+        private void OnPlayerDataSuccess(PlayerModel playerData)
+        {
+            Debug.Log("Player Model: " + playerData.email);
+            _onBoardingUIHandler.loginUIHandler.gameObject.SetActive(true);
+            _onBoardingUIHandler.registerUIHandler.gameObject.SetActive(false);
+            Reset();
+        }
+
+        private void OnPlayerDataSuccessError()
+        {
+            _errorMessage.text = "Encountered an error while saving player data.";
+            _errorPanel.SetActive(true);
+        }
+
+        private void OnPlayerDataError(RequestException error)
+        {
+            _errorMessage.text = error.ToString();
+            _errorPanel.SetActive(true);
+        }
+
+        private void OnRegisterSuccess(PlayerModel playerData)
+        {
+            _restClientManager.Register(playerData.uuid, playerData);
+        }
+
+        private void OnRegisterSuccessError(string successWithErrorMessage)
+        {
+            _errorMessage.text = successWithErrorMessage;
+            _errorPanel.SetActive(true);
+        }
+
+        private void OnRegisterFailed(string failedMessage)
+        {
+            _errorMessage.text = failedMessage;
+            _errorPanel.SetActive(true);
+        }
 
         public void OnBackToLogin()
         {
             _onBoardingUIHandler.loginUIHandler.gameObject.SetActive(true);
             _onBoardingUIHandler.registerUIHandler.gameObject.SetActive(false);
+            Reset();
         }
 
         public void OnRegisterUser()
@@ -58,6 +122,11 @@ namespace kiddiestories
                 errorMessageList.Add("• Please confirm your password");
             }
 
+            if (!password.Equals(confirmPassword)) 
+            {
+                errorMessageList.Add("• Password did not match");
+            }
+
             if (errorMessageList.Count > 0)
             {
                 string errorMessage = "";
@@ -74,11 +143,19 @@ namespace kiddiestories
             {
                 _errorMessage.text = "";
                 _errorPanel.SetActive(false);
-                _onBoardingUIHandler.mainMenuUIHandler.gameObject.SetActive(true);
+                _registerClient.Register(email, firstName, lastName, password);
             }
+        }
 
-            _onBoardingUIHandler.loginUIHandler.gameObject.SetActive(true);
-            _onBoardingUIHandler.registerUIHandler.gameObject.SetActive(false);
+        private void Reset()
+        {
+            _emailInputField.text = string.Empty;
+            _firstNameInputField.text = string.Empty;
+            _lastNameInputField.text = string.Empty;
+            _passwordInputField.text = string.Empty;
+            _confirmPasswordInputField.text = string.Empty;
+            _errorMessage.text = "";
+            _errorPanel.SetActive(false);
         }
 
     }
