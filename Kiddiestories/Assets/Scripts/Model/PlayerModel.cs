@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerModel : MonoBehaviour
+[System.Serializable]
+public class PlayerModel
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public string uuid;
+    public string email;
+    public string firstName;
+    public string lastName;
+
+    public PlayerModel(string uuid, string email, string firstName, string lastName)
     {
-        
+        this.uuid = uuid;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
