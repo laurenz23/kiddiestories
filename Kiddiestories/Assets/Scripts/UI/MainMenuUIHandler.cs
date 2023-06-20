@@ -59,6 +59,7 @@ namespace kiddiestories
             repositoryManager.DeletePlayerProfileData();
             onBoardingUIHandler.loginUIHandler.gameObject.SetActive(true);
             onBoardingUIHandler.gameObject.SetActive(true);
+            gameObject.SetActive(false);
         }
         #endregion
 

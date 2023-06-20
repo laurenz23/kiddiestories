@@ -43,6 +43,7 @@ namespace kiddiestories
 
         private void OnPlayerDataSuccess(PlayerModel playerData)
         {
+            Debug.Log("This is working 2", this);
             _repositoryManager.SavePlayerProfileData(playerData);
 
             if (_repositoryManager.LoadPlayerProfileData() == null)
@@ -72,6 +73,7 @@ namespace kiddiestories
 
         private void OnLoginSuccess(FirebaseUser user)
         {
+            Debug.Log("This is working", this);
             _restClientManager.RetrievePlayerData(user.UserId);
         }
 

@@ -20,6 +20,7 @@ namespace kiddiestories
         [SerializeField] private GameObject[] _story2Image;
         [SerializeField] private GameObject[] _story3Image;
         [SerializeField] private SoundManager _soundManager;
+        [SerializeField] private QuizHandler _quizHandler;
 
         private Story _selectedStory = Story.STORY1;
         private int _currentPage = 0;
@@ -137,7 +138,8 @@ namespace kiddiestories
         public void OnPromptYesTap()
         {
             _soundManager.soundFXManager.PlayUITap("tap1");
-            SceneManager.LoadScene("MainMenuScene");
+            _quizHandler.promptPanel.gameObject.SetActive(true);
+            _quizHandler.quizAnsPanel.gameObject.SetActive(true);
         }
 
         public void OnPromptNoTap()
@@ -303,6 +305,8 @@ namespace kiddiestories
         {
             yield return new WaitForSeconds(3f);
             _promptQuizMessage.SetActive(true);
+            _quizHandler.promptPanel.SetActive(true);
+            _quizHandler.quizAnsPanel.SetActive(false);
             _prevButton.interactable = true;
             _nextButton.interactable = true;
             StopCoroutine(WaitSecondForPromptQuiz());
